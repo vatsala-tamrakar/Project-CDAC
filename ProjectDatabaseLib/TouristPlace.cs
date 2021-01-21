@@ -20,5 +20,7 @@ namespace ProjectDatabaseLib
         public int Ratings { get; set; }
     
         public virtual Location Location { get; set; }
+        public virtual TouristPlace TouristPlaces1 { get; set; }
+        public virtual TouristPlace TouristPlace1 { get; set; }
     }
 }

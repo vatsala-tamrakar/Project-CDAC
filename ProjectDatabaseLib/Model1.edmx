@@ -54,6 +54,19 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Packages">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PlaceName" Type="varchar" MaxLength="50" />
+          <Property Name="NoOfDays" Type="int" />
+          <Property Name="NoOfNights" Type="int" />
+          <Property Name="NoOfPerson" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Image" Type="varchar" MaxLength="500" />
+          <Property Name="Description" Type="varchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="TouristPlaces">
           <Key>
             <PropertyRef Name="Id" />
@@ -156,12 +169,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TouristPlaces_TouristPlaces">
+          <End Role="TouristPlaces" Type="Self.TouristPlaces" Multiplicity="1" />
+          <End Role="TouristPlaces1" Type="Self.TouristPlaces" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TouristPlaces">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TouristPlaces1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TourismWebsiteDBModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlogSpaces" EntityType="Self.BlogSpaces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotels" EntityType="Self.Hotels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Packages" EntityType="Self.Packages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TouristPlaces" EntityType="Self.TouristPlaces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserReviews" EntityType="Self.UserReviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -184,6 +210,10 @@
           <AssociationSet Name="FK_dbo_UserReviews_dbo_Users_Createdby" Association="Self.FK_dbo_UserReviews_dbo_Users_Createdby">
             <End Role="Users" EntitySet="Users" />
             <End Role="UserReviews" EntitySet="UserReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TouristPlaces_TouristPlaces" Association="Self.FK_TouristPlaces_TouristPlaces">
+            <End Role="TouristPlaces" EntitySet="TouristPlaces" />
+            <End Role="TouristPlaces1" EntitySet="TouristPlaces" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -246,6 +276,8 @@
           <Property Name="PlaceName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Ratings" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Location" Relationship="Self.FK_dbo_TouristPlaces_dbo_Locations_LocationId" FromRole="TouristPlaces" ToRole="Locations" />
+          <NavigationProperty Name="TouristPlaces1" Relationship="TourismWebsiteDBModel.FK_TouristPlaces_TouristPlaces" FromRole="TouristPlace" ToRole="TouristPlace1" />
+          <NavigationProperty Name="TouristPlace1" Relationship="TourismWebsiteDBModel.FK_TouristPlaces_TouristPlaces" FromRole="TouristPlace1" ToRole="TouristPlace" />
         </EntityType>
         <EntityType Name="UserReview">
           <Key>
@@ -372,6 +404,11 @@
             <End Role="UserReviews" EntitySet="UserReviews" />
           </AssociationSet>
           <EntitySet Name="Memberships" EntityType="TourismWebsiteDBModel.Membership" />
+          <AssociationSet Name="FK_TouristPlaces_TouristPlaces" Association="TourismWebsiteDBModel.FK_TouristPlaces_TouristPlaces">
+            <End Role="TouristPlace" EntitySet="TouristPlaces" />
+            <End Role="TouristPlace1" EntitySet="TouristPlaces" />
+          </AssociationSet>
+          <EntitySet Name="Packages" EntityType="TourismWebsiteDBModel.Package" />
         </EntityContainer>
         <EntityType Name="Membership">
           <Key>
@@ -380,6 +417,31 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_TouristPlaces_TouristPlaces">
+          <End Type="TourismWebsiteDBModel.TouristPlace" Role="TouristPlace" Multiplicity="1" />
+          <End Type="TourismWebsiteDBModel.TouristPlace" Role="TouristPlace1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TouristPlace">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TouristPlace1">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="PackageId" />
+          </Key>
+          <Property Name="PackageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PlaceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoOfDays" Type="Int32" />
+          <Property Name="NoOfNights" Type="Int32" />
+          <Property Name="NoOfPerson" Type="Int32" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -472,6 +534,20 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="TourismWebsiteDBModel.Package">
+              <MappingFragment StoreEntitySet="Packages">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="NoOfPerson" ColumnName="NoOfPerson" />
+                <ScalarProperty Name="NoOfNights" ColumnName="NoOfNights" />
+                <ScalarProperty Name="NoOfDays" ColumnName="NoOfDays" />
+                <ScalarProperty Name="PlaceName" ColumnName="PlaceName" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

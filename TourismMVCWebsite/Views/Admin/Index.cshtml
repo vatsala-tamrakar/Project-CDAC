@@ -9,15 +9,17 @@
 
 
 <div class="container">
+    <h2 style="text-align:center">List Of Users</h2>
     <br />
+    
     <table class="table">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.UserName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
+
+            @*@Html.DisplayNameFor(model => model.Password)*@
+
             <th>
                 @Html.DisplayNameFor(model => model.City)
             </th>
@@ -28,11 +30,14 @@
                 @Html.DisplayNameFor(model => model.ContactNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Isactive)
+                Options
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Isadmin)
-            </th>
+
+            @*@Html.DisplayNameFor(model => model.Isactive)*@
+
+
+            @*@Html.DisplayNameFor(model => model.Isadmin)*@
+
             <th></th>
         </tr>
 
@@ -42,9 +47,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.UserName)
                 </td>
-                <td>
+                @*<td>
                     @Html.DisplayFor(modelItem => item.Password)
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.City)
                 </td>
@@ -54,16 +59,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ContactNumber)
                 </td>
+
+                @*@Html.DisplayFor(modelItem => item.Isactive)*@
+
+
+                @*@Html.DisplayFor(modelItem => item.Isadmin)*@
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.Isactive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Isadmin)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
+                    @*<button class="btn btn-sm btn-success"  type="submit"> @Html.ActionLink("Edit", "Edit", new { id = item.UserId })</button>*@
+                    <button class="btn btn-sm btn-info" type="submit"> @Html.ActionLink("Details", "Details",new { id = item.UserId }) </button>
+                    <button class="btn btn-sm btn-danger" type="submit"> @Html.ActionLink("Delete", "Delete",new { id = item.UserId })</button>
                 </td>
             </tr>
         }

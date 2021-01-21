@@ -42,7 +42,8 @@
                             <a class="nav-link" href="/Admin/Front">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">Create Pakage</a>
+                            @Html.ActionLink("Packages", "Packages", "Admin", new { area = "" }, new { @class = "nav-link" })
+                            
                         </li>
                         <li class="nav-item">
                             @Html.ActionLink("List Of User", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })
@@ -54,10 +55,16 @@
                     <div class="d-lg-block d-none nav-item">
                         <ul class="nav navbar-nav navbar-right">
 
+                           
                             @if (User.Identity.IsAuthenticated)
                             {
-                                <li><a>Hello @User.Identity.Name</a></li>
-                                <li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "nav-link nav-item" })</li>
+
+                                <li class="nav-item"><a class="nav-link">Hello @User.Identity.Name</a></li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Account/Logout">Logout</a>
+                                </li>
+                               
+                                @*<li>@Html.ActionLink("Logout", "Logout", "Account", new { area = "" }, new { @class = "nav-item nav-link" })</li>*@
                             }
                             else
                             {
@@ -72,7 +79,9 @@
         </div>
     </header>
     <br />
-    <div>
+    <div class="mt-5">
+        <br/>
+        <br />
         @RenderBody()
     </div>
 </body>

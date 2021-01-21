@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectDatabaseLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,10 @@ namespace TourismMVCWebsite.Controllers
 {
     public class HomeController : Controller
     {
+        private TourismWebsiteDBEntities db = new TourismWebsiteDBEntities();
         public ActionResult Index()
         {
-            return View();
+            return View(db.Packages.ToList());
         }
 
         public ActionResult About()

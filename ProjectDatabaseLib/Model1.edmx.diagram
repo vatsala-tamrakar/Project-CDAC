@@ -18,6 +18,8 @@
         <AssociationConnector Association="TourismWebsiteDBModel.FK_dbo_TouristPlaces_dbo_Locations_LocationId" ManuallyRouted="false" />
         <AssociationConnector Association="TourismWebsiteDBModel.FK_dbo_UserReviews_dbo_Users_Createdby" ManuallyRouted="false" />
         <EntityTypeShape EntityType="TourismWebsiteDBModel.Membership" Width="1.5" PointX="5.375" PointY="4.75" />
+        <AssociationConnector Association="TourismWebsiteDBModel.FK_TouristPlaces_TouristPlaces" />
+        <EntityTypeShape EntityType="TourismWebsiteDBModel.Package" Width="1.5" PointX="7.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -23,27 +23,24 @@ namespace ProjectDatabaseLib
         }
     
         public int UserId { get; set; }
-
-        [Required(ErrorMessage ="Username is required")]
+        
+        [Required(ErrorMessage = "User Name is required.")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Password is required")]
+        [Required(ErrorMessage = "Password is required.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Required(ErrorMessage = "Confirmation of Password is required")]
-        [DataType(DataType.Password)]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
-
-        [Required(ErrorMessage = "City is required")]
+       
+        [Required(ErrorMessage = "City is required.")]
         public string City { get; set; }
 
-        [Required(ErrorMessage = "Email is required")]
+        [Required]
         public string EmailId { get; set; }
-
-        [Required(ErrorMessage = "Contect Number required")]
+        
+        [Required]
         public string ContactNumber { get; set; }
+
+       
         public Nullable<bool> Isactive { get; set; }
         public int Isadmin { get; set; }
     

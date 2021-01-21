@@ -33,5 +33,6 @@ namespace ProjectDatabaseLib
         public virtual DbSet<UserReview> UserReviews { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Membership> Memberships { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
     }
 }
