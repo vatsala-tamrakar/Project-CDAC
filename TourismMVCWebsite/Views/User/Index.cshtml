@@ -33,9 +33,9 @@
                                         <span>&#8377;@Html.DisplayFor(modelItem => item.Price)</span>
                                     </div>
                                     <p class="sub-para">@Html.DisplayFor(modelItem => item.NoOfPerson) person on twin sharing</p>
-                                    <p>
-                                        @Html.ActionLink("More Details", "", "", null, new { @class = "btn btn-info btn-large" })
-                                    </p>
+                                    <br />
+                                        <button class="btn btn-outline-info"  style="align-items:center" type="submit">@Html.ActionLink("View Details", "ViewDetails", new { id = item.PackageId })</button>
+                            
                                 </div>
                                
                             </div>

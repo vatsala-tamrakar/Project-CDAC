@@ -17,5 +17,19 @@ namespace TourismMVCWebsite.Controllers
             
             return View(db.Packages.ToList());
         }
+
+        public ActionResult ViewDetails(int? id)
+        {
+           
+            var packages = db.Packages.Find(id);
+            Session["imgPath"] = packages.Image;
+            if (packages == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(packages);
+        }
+
     }
 }
