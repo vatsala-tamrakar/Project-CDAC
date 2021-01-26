@@ -12,15 +12,12 @@ namespace ProjectDatabaseLib
     using System;
     using System.Collections.Generic;
     
-    public partial class Package
+    public partial class BlogSpace1
     {
-        public int PackageId { get; set; }
-        public string PlaceName { get; set; }
-        public Nullable<int> NoOfDays { get; set; }
-        public Nullable<int> NoOfNights { get; set; }
-        public Nullable<int> NoOfPerson { get; set; }
-        public Nullable<int> Price { get; set; }
-        public string Image { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
+        public string URL { get; set; }
+        public string Category { get; set; }
     }
 }

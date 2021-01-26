@@ -128,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -239,6 +240,20 @@
     <Content Include="Views\Admin\EditPakages.cshtml" />
     <Content Include="Views\User\ViewDetails.cshtml" />
     <Content Include="Views\Shared\_ViweDetailsLayout.cshtml" />
+    <Content Include="Views\Shared\_AboutusLayout1.cshtml" />
+    <Content Include="Views\Shared\_ContectUsLayout.cshtml" />
+    <Content Include="Views\Blog\best_travel.cshtml" />
+    <Content Include="Views\Blog\Blogs.cshtml" />
+    <Content Include="Views\Blog\Destination.cshtml" />
+    <Content Include="Views\Blog\food.cshtml" />
+    <Content Include="Views\Blog\Miscellaneous.cshtml" />
+    <Content Include="Views\Blog\shimla_destination.cshtml" />
+    <Content Include="Views\Blog\Travel_Experience.cshtml" />
+    <Content Include="Views\Blog\Uploadblog.cshtml" />
+    <Content Include="Views\Shared\_BlogLayout.cshtml" />
+    <Content Include="Views\Shared\_UploadBlogLayout.cshtml" />
+    <Content Include="Views\Blog\BlogLog.cshtml" />
+    <Content Include="Views\Shared\_UserBlogLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
