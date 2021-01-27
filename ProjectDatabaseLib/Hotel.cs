@@ -19,6 +19,7 @@ namespace ProjectDatabaseLib
         public string HotelName { get; set; }
         public int Price { get; set; }
         public int Hoteltype { get; set; }
+        public string hotelImage { get; set; }
     
         public virtual Location Location { get; set; }
     }

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ProjectDatabaseLib;
+using Testdal;
 
 namespace TourismMVCWebsite.Controllers
 {
@@ -15,7 +16,12 @@ namespace TourismMVCWebsite.Controllers
     public class AdminController : Controller
     {
         private TourismWebsiteDBEntities db = new TourismWebsiteDBEntities();
+        private readonly DalInter con;
 
+        public AdminController()
+        {
+            con = new DalImp();
+        }
         public ActionResult Front()
         {
             return View();
@@ -264,6 +270,145 @@ namespace TourismMVCWebsite.Controllers
 
 
             return View();
+        }
+
+
+
+        //Hotel 
+        public ActionResult Hotels(string Id)
+        {
+
+
+            if (Id == null)
+            {
+                Id = "";
+            }
+            IEnumerable<Hotel> ListHotels = con.GetAllHotel();
+
+
+
+            // IEnumerable<Product> products = repo.GetProducts();
+            if (!string.IsNullOrEmpty(Id) && Id != "All")
+            {
+                ListHotels = ListHotels.Where(p => p.HotelName.ToLower() == Id.ToLower());
+            }
+            return View(ListHotels);
+        }
+        public ActionResult NewHotel()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult NewHotel(HttpPostedFileBase file, Hotel obj)
+        {
+            string filename = Path.GetFileName(file.FileName);
+            string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+            string extension = Path.GetExtension(file.FileName);
+            string path = Path.Combine(Server.MapPath("~/Content/assets/images/"), _filename);
+            obj.hotelImage = "~/Content/assets/images/" + _filename;
+            if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
+            {
+                bool changes = false;
+                if (file.ContentLength <= 10000000)
+                {
+                    changes = con.InsertHotel(obj);
+                }
+                if (changes == true)
+                {
+                    file.SaveAs(path);
+                    ViewBag.msg = "Hotel Added";
+                    ModelState.Clear();
+                }
+
+            }
+            else
+            {
+                ViewBag.msg = "Size is not valid";
+            }
+            return View();
+        }
+
+        public ActionResult HotelUpdate(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Hotel hotel = con.GetHotel((int)id);
+            Session["oldImage"] = hotel.hotelImage;
+            return View(hotel);
+        }
+        [HttpPost]
+        public ActionResult HotelUpdate(HttpPostedFileBase file, Hotel obj)
+        {
+            if (ModelState.IsValid)
+            {
+                if (file != null)
+                {
+                    string filename = Path.GetFileName(file.FileName);
+                    string _filename = DateTime.Now.ToString("yymmssfff") + filename;
+                    string extension = Path.GetExtension(file.FileName);
+                    string path = Path.Combine(Server.MapPath("~/Content/assets/images/"), _filename);
+                    obj.hotelImage = "~/Content/assets/images/" + _filename;
+                    if (extension.ToLower() == ".jpg" || extension.ToLower() == ".jpeg" || extension.ToLower() == ".png")
+                    {
+                        bool changes = false;
+                        if (file.ContentLength <= 10000000)
+                        {
+                            changes = con.UpdateHotel(obj);
+                            string OldImage = Request.MapPath(Session["oldImage"].ToString());
+                            if (changes == true)
+                            {
+                                file.SaveAs(path);
+                                if (OldImage != obj.hotelImage.ToString())
+                                {
+                                    if (System.IO.File.Exists(OldImage))
+                                    {
+                                        System.IO.File.Delete(OldImage);
+                                    }
+                                }
+                                /*ViewBag.msg = "Hotel Updated";
+                                ModelState.Clear();*/
+                            }
+                        }
+
+                        else
+                        {
+                            ViewBag.msg = "Size is not valid";
+                        }
+                    }
+                }
+            }
+            else
+            {
+                obj.hotelImage = Session["oldImage"].ToString();
+                if (con.UpdateHotel(obj))
+                {
+                    return RedirectToAction("Hotels");
+                }
+
+            }
+
+            return View();
+        }
+        public ActionResult HotelDelete(int? id)
+        {
+
+            if (id == null)
+            {
+                return RedirectToAction("Hotels");
+            }
+
+            Hotel hotel = con.DeleteHotel((int)id);
+            string Oldimage = Request.MapPath(hotel.hotelImage.ToString());
+
+            if (System.IO.File.Exists(Oldimage))
+            {
+                System.IO.File.Delete(Oldimage);
+            }
+
+            return RedirectToAction("Hotels");
         }
     }
 }

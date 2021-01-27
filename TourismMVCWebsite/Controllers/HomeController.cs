@@ -28,5 +28,42 @@ namespace TourismMVCWebsite.Controllers
 
             return View();
         }
+
+        public ActionResult Destination()
+        {
+            return View();
+        }
+
+        public ActionResult Destination2()
+        {
+            return View();
+        }
+        public ActionResult Destination3()
+        {
+            return View();
+        }
+
+        public ActionResult Destination4()
+        {
+            return View();
+        }
+
+        public ActionResult Packages()
+        {
+
+            return View(db.Packages.ToList());
+        }
+
+        public ActionResult Booking(int? id)
+        {
+            var packages = db.Packages.Find(id);
+            Session["imgPath"] = packages.Image;
+            if (packages == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(packages);
+        }
     }
 }

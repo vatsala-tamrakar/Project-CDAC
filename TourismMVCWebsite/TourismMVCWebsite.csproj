@@ -130,10 +130,13 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HotelController.cs" />
+    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gmaps.cs" />
     <Compile Include="Models\Membership.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -254,6 +257,31 @@
     <Content Include="Views\Shared\_UploadBlogLayout.cshtml" />
     <Content Include="Views\Blog\BlogLog.cshtml" />
     <Content Include="Views\Shared\_UserBlogLayout.cshtml" />
+    <Content Include="Views\Shared\_Booking.cshtml" />
+    <Content Include="Views\Shared\_Destination.cshtml" />
+    <Content Include="Views\Shared\_Destination2.cshtml" />
+    <Content Include="Views\Shared\_Destination3.cshtml" />
+    <Content Include="Views\Shared\_Destination4.cshtml" />
+    <Content Include="Views\Shared\_Packages.cshtml" />
+    <Content Include="Views\User\Booking.cshtml" />
+    <Content Include="Views\User\Destination.cshtml" />
+    <Content Include="Views\User\Destination2.cshtml" />
+    <Content Include="Views\User\Destination3.cshtml" />
+    <Content Include="Views\User\Destination4.cshtml" />
+    <Content Include="Views\User\Packages.cshtml" />
+    <Content Include="Views\Home\Booking.cshtml" />
+    <Content Include="Views\Home\Destination.cshtml" />
+    <Content Include="Views\Home\Destination2.cshtml" />
+    <Content Include="Views\Home\Destination3.cshtml" />
+    <Content Include="Views\Home\Destination4.cshtml" />
+    <Content Include="Views\Home\Packages.cshtml" />
+    <Content Include="Views\Map\Maps.cshtml" />
+    <Content Include="Views\Map\UserMaps.cshtml" />
+    <Content Include="Views\Hotel\Index.cshtml" />
+    <Content Include="Views\Admin\Hotels.cshtml" />
+    <Content Include="Views\Admin\NewHotel.cshtml" />
+    <Content Include="Views\Hotel\UserIndex.cshtml" />
+    <Content Include="Views\Admin\HotelUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +303,10 @@
     <ProjectReference Include="..\ProjectDatabaseLib\ProjectDatabaseLib.csproj">
       <Project>{8e83add9-d8d4-4123-9132-28de82e7490c}</Project>
       <Name>ProjectDatabaseLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Testdal\Testdal.csproj">
+      <Project>{f87a706c-68d5-4485-9c33-a9786655a2fc}</Project>
+      <Name>Testdal</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
