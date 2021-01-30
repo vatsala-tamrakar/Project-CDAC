@@ -21,9 +21,9 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="500" />
+          <Property Name="Outline" Type="nvarchar" MaxLength="1000" />
           <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="URL" Type="nvarchar" MaxLength="500" />
-          <Property Name="Category" Type="nvarchar" MaxLength="500" />
+          <Property Name="Category" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="BlogSpaces">
           <Key>
@@ -34,6 +34,18 @@
           <Property Name="LocationId" Type="int" Nullable="false" />
           <Property Name="Isactive" Type="bit" />
           <Property Name="Createdby" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Flights">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_Name" Type="nvarchar(max)" />
+          <Property Name="Start_From" Type="nvarchar(max)" />
+          <Property Name="Destination" Type="nvarchar(max)" />
+          <Property Name="Departure_Date" Type="nvarchar(max)" />
+          <Property Name="Departure_Time" Type="nvarchar(max)" />
+          <Property Name="LocationId" Type="int" />
         </EntityType>
         <EntityType Name="Hotels">
           <Key>
@@ -110,6 +122,18 @@
           <Property Name="Isactive" Type="bit" />
           <Property Name="Isadmin" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Flights__Locatio__628FA481">
+          <End Role="Locations" Type="Self.Locations" Multiplicity="0..1" />
+          <End Role="Flights" Type="Self.Flights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locations">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flights">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_BlogSpaces_dbo_Locations_LocationId">
           <End Role="Locations" Type="Self.Locations" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -196,6 +220,7 @@
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlogSpace1" EntityType="Self.BlogSpace1" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlogSpaces" EntityType="Self.BlogSpaces" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Flights" EntityType="Self.Flights" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Hotels" EntityType="Self.Hotels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
@@ -203,6 +228,10 @@
           <EntitySet Name="TouristPlaces" EntityType="Self.TouristPlaces" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserReviews" EntityType="Self.UserReviews" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Flights__Locatio__628FA481" Association="Self.FK__Flights__Locatio__628FA481">
+            <End Role="Locations" EntitySet="Locations" />
+            <End Role="Flights" EntitySet="Flights" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_BlogSpaces_dbo_Locations_LocationId" Association="Self.FK_dbo_BlogSpaces_dbo_Locations_LocationId">
             <End Role="Locations" EntitySet="Locations" />
             <End Role="BlogSpaces" EntitySet="BlogSpaces" />
@@ -279,6 +308,7 @@
           <NavigationProperty Name="BlogSpaces" Relationship="Self.FK_dbo_BlogSpaces_dbo_Locations_LocationId" FromRole="Locations" ToRole="BlogSpaces" />
           <NavigationProperty Name="Hotels" Relationship="Self.FK_dbo_Hotels_dbo_Locations_LocationId" FromRole="Locations" ToRole="Hotels" />
           <NavigationProperty Name="TouristPlaces" Relationship="Self.FK_dbo_TouristPlaces_dbo_Locations_LocationId" FromRole="Locations" ToRole="TouristPlaces" />
+          <NavigationProperty Name="Flights" Relationship="TourismWebsiteDBModel.FK__Flights__Locatio__628FA481" FromRole="Location" ToRole="Flight" />
         </EntityType>
         <EntityType Name="TouristPlace">
           <Key>
@@ -423,6 +453,11 @@
           </AssociationSet>
           <EntitySet Name="Packages" EntityType="TourismWebsiteDBModel.Package" />
           <EntitySet Name="BlogSpace1" EntityType="TourismWebsiteDBModel.BlogSpace1" />
+          <EntitySet Name="Flights" EntityType="TourismWebsiteDBModel.Flight" />
+          <AssociationSet Name="FK__Flights__Locatio__628FA481" Association="TourismWebsiteDBModel.FK__Flights__Locatio__628FA481">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Flight" EntitySet="Flights" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Membership">
           <Key>
@@ -464,9 +499,34 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Category" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Category" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Outline" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Flight">
+          <Key>
+            <PropertyRef Name="F_Id" />
+          </Key>
+          <Property Name="F_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Start_From" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Destination" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Departure_Date" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Departure_Time" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LocationId" Type="Int32" />
+          <NavigationProperty Name="Location" Relationship="TourismWebsiteDBModel.FK__Flights__Locatio__628FA481" FromRole="Flight" ToRole="Location" />
+        </EntityType>
+        <Association Name="FK__Flights__Locatio__628FA481">
+          <End Type="TourismWebsiteDBModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="TourismWebsiteDBModel.Flight" Role="Flight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flight">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -579,11 +639,24 @@
           <EntitySetMapping Name="BlogSpace1">
             <EntityTypeMapping TypeName="TourismWebsiteDBModel.BlogSpace1">
               <MappingFragment StoreEntitySet="BlogSpace1">
+                <ScalarProperty Name="Outline" ColumnName="Outline" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="URL" ColumnName="URL" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flights">
+            <EntityTypeMapping TypeName="TourismWebsiteDBModel.Flight">
+              <MappingFragment StoreEntitySet="Flights">
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Departure_Time" ColumnName="Departure_Time" />
+                <ScalarProperty Name="Departure_Date" ColumnName="Departure_Date" />
+                <ScalarProperty Name="Destination" ColumnName="Destination" />
+                <ScalarProperty Name="Start_From" ColumnName="Start_From" />
+                <ScalarProperty Name="F_Name" ColumnName="F_Name" />
+                <ScalarProperty Name="F_Id" ColumnName="F_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

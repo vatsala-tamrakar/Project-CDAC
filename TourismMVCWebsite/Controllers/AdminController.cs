@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjectDatabaseLib;
 using Testdal;
+using DAL;
 
 namespace TourismMVCWebsite.Controllers
 {
@@ -16,11 +17,14 @@ namespace TourismMVCWebsite.Controllers
     public class AdminController : Controller
     {
         private TourismWebsiteDBEntities db = new TourismWebsiteDBEntities();
-        private readonly DalInter con;
+        private readonly DalInter con;// kushal
+        private readonly DataAccessInterface dalobj; //aishwarya
 
         public AdminController()
         {
             con = new DalImp();
+            dalobj = new DataAccessImplement();
+
         }
         public ActionResult Front()
         {
@@ -272,6 +276,17 @@ namespace TourismMVCWebsite.Controllers
             return View();
         }
 
+        //public Package GetPackagename(string P_Name)
+        //{
+        //    Package pkg = null;
+
+        //    pkg = (Package)db.Packages.Where(x => x.PlaceName == P_Name).First();
+
+       
+        //    return pkg;
+        //}
+
+
 
 
         //Hotel 
@@ -342,8 +357,7 @@ namespace TourismMVCWebsite.Controllers
         [HttpPost]
         public ActionResult HotelUpdate(HttpPostedFileBase file, Hotel obj)
         {
-            if (ModelState.IsValid)
-            {
+            
                 if (file != null)
                 {
                     string filename = Path.GetFileName(file.FileName);
@@ -379,7 +393,7 @@ namespace TourismMVCWebsite.Controllers
                         }
                     }
                 }
-            }
+            
             else
             {
                 obj.hotelImage = Session["oldImage"].ToString();
@@ -409,6 +423,94 @@ namespace TourismMVCWebsite.Controllers
             }
 
             return RedirectToAction("Hotels");
+        }
+
+
+
+        //Flight 
+        public ActionResult NewFlight()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NewFlight(Flight obj)
+        {
+            bool changes = false;
+            changes = dalobj.InsertFlight(obj);
+
+            if (changes == true)
+            {
+
+                ViewBag.msg = "Flight Details Added";
+                ModelState.Clear();
+            }
+            else
+            {
+                ViewBag.msg = "Flight Details Not Added";
+            }
+            return View();
+        }
+
+        public ActionResult FlightUpdate(int? Id)
+        {
+            if (Id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Flight flight = dalobj.GetFlightName((int)Id);
+
+            return View(flight);
+        }
+
+        public ActionResult FlightDelete(int? F_Id)
+        {
+
+            if (F_Id == null)
+            {
+                return RedirectToAction("Flights");
+            }
+
+            dalobj.DeleteFlight((int)F_Id);
+
+            return RedirectToAction("Flights");
+        }
+        public ActionResult Flights(string F_Id)
+        {
+
+
+            if (F_Id == null)
+            {
+                F_Id = "";
+            }
+            IEnumerable<Flight> ListFlights = dalobj.GetAllFlights();
+
+
+
+            // IEnumerable<Product> products = repo.GetProducts();
+            if (!string.IsNullOrEmpty(F_Id) && F_Id != "All")
+            {
+                ListFlights = ListFlights.Where(p => p.F_Name.ToLower() == F_Id.ToLower()).OrderByDescending(x => x.F_Id);
+            }
+            return View(ListFlights);
+        }
+
+        [HttpPost]
+        public ActionResult FlightUpdate(Flight obj)
+        {
+            bool changes = false;
+            changes = dalobj.UpdateFlight(obj);
+
+
+
+
+            if (dalobj.UpdateFlight(obj))
+            {
+                return RedirectToAction("Flights");
+            }
+
+
+
+            return View();
         }
     }
 }

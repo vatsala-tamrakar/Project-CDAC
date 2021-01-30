@@ -11,7 +11,8 @@ namespace ProjectDatabaseLib
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,10 +23,17 @@ namespace ProjectDatabaseLib
         }
     
         public int UserId { get; set; }
+        [Required(ErrorMessage = "Name is Required")]
         public string UserName { get; set; }
+       
+        [Required(ErrorMessage = "Password is Required")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+        [Required(ErrorMessage = "city is Required")]
         public string City { get; set; }
+        [Required(ErrorMessage = "Email is Required")]
         public string EmailId { get; set; }
+        [Required(ErrorMessage = "Contect No is Required")]
         public string ContactNumber { get; set; }
         public Nullable<bool> Isactive { get; set; }
         public int Isadmin { get; set; }

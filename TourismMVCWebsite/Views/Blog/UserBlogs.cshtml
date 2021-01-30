@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<ProjectDatabaseLib.BlogSpace1>
-
 @{
-
-    ViewBag.Title = "Blogs";
-    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+    ViewBag.Title = "UserBlogs";
+    Layout = "~/Views/Shared/_UserBlogLayout.cshtml";
 }
 <style>
     body {
@@ -52,7 +50,7 @@
 
             <tr>
                 <td>
-                    <b>Category:</b> <a  style="color:blue" href="~/Blog/@item.Category"><b>@Html.DisplayFor(modelItem => item.Category)</b></a>
+                    <b>Category:</b> <a style="color:blue" href="~/Blog/@item.Category"><b>@Html.DisplayFor(modelItem => item.Category)</b></a>
                 </td>
 
             </tr>
@@ -65,3 +63,5 @@
     </ul>
 
 </div>
+
+

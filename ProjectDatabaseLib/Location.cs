@@ -20,6 +20,7 @@ namespace ProjectDatabaseLib
             this.BlogSpaces = new HashSet<BlogSpace>();
             this.Hotels = new HashSet<Hotel>();
             this.TouristPlaces = new HashSet<TouristPlace>();
+            this.Flights = new HashSet<Flight>();
         }
     
         public int Id { get; set; }
@@ -35,5 +36,7 @@ namespace ProjectDatabaseLib
         public virtual ICollection<Hotel> Hotels { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TouristPlace> TouristPlaces { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Flight> Flights { get; set; }
     }
 }

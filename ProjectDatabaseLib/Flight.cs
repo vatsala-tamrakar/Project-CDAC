@@ -12,12 +12,16 @@ namespace ProjectDatabaseLib
     using System;
     using System.Collections.Generic;
     
-    public partial class BlogSpace1
+    public partial class Flight
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Category { get; set; }
-        public string Outline { get; set; }
+        public int F_Id { get; set; }
+        public string F_Name { get; set; }
+        public string Start_From { get; set; }
+        public string Destination { get; set; }
+        public string Departure_Date { get; set; }
+        public string Departure_Time { get; set; }
+        public Nullable<int> LocationId { get; set; }
+    
+        public virtual Location Location { get; set; }
     }
 }

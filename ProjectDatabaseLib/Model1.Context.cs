@@ -35,5 +35,6 @@ namespace ProjectDatabaseLib
         public virtual DbSet<Membership> Memberships { get; set; }
         public virtual DbSet<Package> Packages { get; set; }
         public virtual DbSet<BlogSpace1> BlogSpace1 { get; set; }
+        public virtual DbSet<Flight> Flights { get; set; }
     }
 }

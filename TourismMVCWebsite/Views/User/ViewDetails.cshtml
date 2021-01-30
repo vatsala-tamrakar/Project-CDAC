@@ -2,8 +2,10 @@
 
 @{
     ViewBag.Title = "ViewDetails";
-    Layout = "~/Views/Shared/_ViweDetailsLayout.cshtml";
+    Layout = "~/Views/Shared/_CommonNavUserLayout.cshtml";
 }
+
+
 
 <section class="w3l-about-breadcrumb text-left">
     <div class="breadcrumb-bg breadcrumb-bg-about py-sm-5 py-4">
@@ -39,10 +41,10 @@
         </div>
         <br />
         <div class="ab-section text-center">
-            
+            @*<a href="/User/Booking" class="btn btn-style btn-primary" id="PackageId" name="PackageId">Read More</a>*@
             <button class="btn btn-style btn-primary" style="align-items:center;color:white" type="submit">@Html.ActionLink("Book Nowww", "Booking", new { id = Model.PackageId })</button>
         </div>
-        
+
     </div>
 </section>
 
